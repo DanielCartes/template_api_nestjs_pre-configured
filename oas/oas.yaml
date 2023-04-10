@@ -1,0 +1,617 @@
+openapi: 3.0.0
+paths:
+  /second-try-delivery/execute-sie-rule:
+    post:
+      operationId: SegundoIntentoDeEntregaController_ejecutarReglaSIE
+      summary: Ejecuta regla segundo intento de entrega
+      description: "Ejecuta la regla de última milla de tipo segundo intento de entrega en punto BX\rSi la regla se cumple para la OS, se asocia la OS con el punto BX más cercano y se envio la información a beetrack"
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EjecutarReglaSIEBody'
+      responses:
+        '200':
+          description: Error en reglas de negocio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OmitTypeClass'
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EjecutarReglaSIEResponseDto'
+        '404':
+          description: OS no encontrada
+      tags: &ref_0
+        - Segundo Intento Entrega
+  /second-try-delivery/rollback-sie-rule:
+    post:
+      operationId: SegundoIntentoDeEntregaController_rollbackReglaSIE
+      summary: Rollback a regla SIE ejecutada
+      description: "Ejecuta la regla de última milla de tipo segundo intento de entrega en punto BX\rSi la regla se cumple para la OS, se asocia la OS con el punto BX más cercano y se envio la información a beetrack"
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EjecutarReglaSIEBody'
+      responses:
+        '201':
+          description: ''
+        '404':
+          description: OS no encontrada
+      tags: *ref_0
+  /second-try-delivery/rule:
+    get:
+      operationId: SegundoIntentoDeEntregaController_findManyReglas
+      summary: Find rules
+      description: >-
+        Busca reglas de tipo "Segundo Intento de Entrega" basado en su ID o
+        nombre.
+      parameters:
+        - name: nombreOId
+          required: false
+          in: query
+          description: Nombre o ID de la regla
+          example: '1002'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReglaSIEAgregadasPuntoBXdto'
+      tags: *ref_0
+    post:
+      operationId: SegundoIntentoDeEntregaController_createRegla
+      summary: Create SIE rule
+      description: >-
+        Crea una regla de última milla de tipo segundo intento de entrega en
+        punto BX
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReglaSIEBody'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateReglaSIEResponse'
+      tags: *ref_0
+  /second-try-delivery/rule/{id}:
+    get:
+      operationId: SegundoIntentoDeEntregaController_findOneRegla
+      summary: Find rule by id
+      description: Busca una regla de tipo "Segundo Intento de Entrega" basado en su ID.
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReglaSIEPuntoBXdto'
+        '404':
+          description: Not found
+      tags: *ref_0
+    put:
+      operationId: SegundoIntentoDeEntregaController_updateRegla
+      summary: Update SIE rule
+      description: >-
+        Edita una regla de última milla de tipo segundo intento de entrega en
+        punto BX
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReglaSIEBody'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateReglaSIEResponse'
+        '404':
+          description: Rule not found
+      tags: *ref_0
+  /second-try-delivery/rule/{id}/clients:
+    patch:
+      operationId: SegundoIntentoDeEntregaController_updateClientesRegla
+      summary: Update  rule's clients by rule id
+      description: >-
+        Edita los clientes asociados a una regla de última milla de tipo segundo
+        intento de entrega en punto BX
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClientesReglaBody'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateClientesReglaResponse'
+        '404':
+          description: Rule not found
+      tags: *ref_0
+  /second-try-delivery/clients:
+    get:
+      operationId: SegundoIntentoDeEntregaController_findManyClientes
+      summary: Get clients by rule by id
+      description: >-
+        Obtiene una lista paginada de clientes basado en los parámetros de
+        búsqueda (cuenta corriente y nombre).
+      parameters:
+        - name: cuentaCorriente
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: nombre
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: page
+          required: false
+          in: query
+          schema:
+            type: number
+        - name: items_per_page
+          required: false
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClienteDto'
+        '404':
+          description: Rule not found
+      tags: *ref_0
+  /second-try-delivery/ev-ex-last-mile:
+    get:
+      operationId: SegundoIntentoDeEntregaController_getPinchazosUltimaMilla
+      summary: Get last miles EvEx
+      description: Obtiene la lista de pinchazos de ultima milla
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventoExcepcion'
+      tags: *ref_0
+info:
+  title: API - Última milla
+  description: API para la gestión y ejecución de reglas de última milla
+  version: '0.1'
+  contact: {}
+  license:
+    name: Copyright © 2022 Blue Express
+    url: Av. El Retiro 9800, Parque Industrial Los Maitenes, Pudahuel, Santiago
+tags: []
+servers:
+  - url: http://localhost:3000
+    description: Local
+components:
+  schemas:
+    EjecutarReglaSIEBody:
+      type: object
+      properties:
+        idOS:
+          type: number
+          description: ID de la OS para que se intentará asociar un punto BX cercano
+          example: 198306998
+      required:
+        - idOS
+    HttpErrorsSieDto:
+      type: object
+      properties:
+        code:
+          type: string
+          example: EXAMPLE_CODE
+          enum:
+            - PICKUP_NOT_FOUND
+            - OS_NOT_FOUND
+            - NO_MATCHING_RULE
+            - EVEX_NOT_TRUSTED
+            - UNCONTROLLED_ERROR
+            - SUCCESS
+            - ERROR
+        message:
+          type: string
+      required:
+        - code
+        - message
+    OmitTypeClass:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/HttpErrorsSieDto'
+        code:
+          type: string
+          example: EXAMPLE_CODE
+          enum:
+            - PICKUP_NOT_FOUND
+            - OS_NOT_FOUND
+            - NO_MATCHING_RULE
+            - EVEX_NOT_TRUSTED
+            - UNCONTROLLED_ERROR
+            - SUCCESS
+            - ERROR
+      required:
+        - code
+    EjecutarReglaSIEOutputDto:
+      type: object
+      properties:
+        idOS:
+          type: number
+          description: ID OS
+          example: 198306998
+        idPuntoBX:
+          type: number
+          description: ID Punto BX asociado a la OS
+          example: 6
+        idRegla:
+          type: number
+          description: ID de la regla activada
+          example: 1000
+      required:
+        - idOS
+        - idPuntoBX
+        - idRegla
+    EjecutarReglaSIEResponseDto:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/EjecutarReglaSIEOutputDto'
+        error:
+          $ref: '#/components/schemas/HttpErrorsSieDto'
+        code:
+          type: string
+          example: EXAMPLE_CODE
+          enum:
+            - PICKUP_NOT_FOUND
+            - OS_NOT_FOUND
+            - NO_MATCHING_RULE
+            - EVEX_NOT_TRUSTED
+            - UNCONTROLLED_ERROR
+            - SUCCESS
+            - ERROR
+      required:
+        - code
+    ReglaSIEAgregadasPuntoBXdto:
+      type: object
+      properties:
+        DVCF_SEQ:
+          type: number
+          description: ID de la regla
+          example: 1001
+        DVTA_CDG:
+          type: number
+          description: ID tipo de regla
+          example: 10
+        DVCF_CANT_TRNL:
+          type: number
+          description: >-
+            Cantidad de pinchazos recibidos antes de ejecutar la regla.
+
+            Ej: Si es 2, se ejecutará la regla cuando la OS tenga 2 pinchazos
+            que sean parte de la regla.
+          example: 3
+        DESC_CONF:
+          type: string
+          description: Descripción de la regla
+        CTA_CTES:
+          description: >-
+            Cuentas corrientes de los cliente de los clientes asociados a la
+            reglas
+          example: 123-1-*
+          type: array
+          items:
+            type: string
+        EV_EX_CONTIENE_REGLA:
+          type: string
+          description: Pinchazos que activan la regla separados por comas
+          example: NH,ND
+        DISTANCIA_CORTE_KM:
+          type: number
+          description: Distancia máxima en km para buscar puntosBX cercanos a la OS
+          example: 10
+        BASE_CDG:
+          type: string
+          description: Base de la OS
+          example: SCL
+      required:
+        - DVCF_SEQ
+        - DVTA_CDG
+        - DVCF_CANT_TRNL
+        - DESC_CONF
+        - CTA_CTES
+        - EV_EX_CONTIENE_REGLA
+        - DISTANCIA_CORTE_KM
+        - BASE_CDG
+    ReglaSIEPuntoBXdto:
+      type: object
+      properties:
+        DVCF_SEQ:
+          type: number
+          description: ID de la regla
+          example: 1001
+        DVTA_CDG:
+          type: number
+          description: ID tipo de regla
+          example: 10
+        DVCF_CANT_TRNL:
+          type: number
+          description: >-
+            Cantidad de pinchazos recibidos antes de ejecutar la regla.
+
+            Ej: Si es 2, se ejecutará la regla cuando la OS tenga 2 pinchazos
+            que sean parte de la regla.
+          example: 3
+        DESC_CONF:
+          type: string
+          description: Descripción de la regla
+        CTA_CTE:
+          type: string
+          description: >-
+            Cuentas corrientes de los cliente de los clientes asociados a la
+            reglas
+          example: 123-1-*
+        EV_EX_CONTIENE_REGLA:
+          type: string
+          description: Pinchazos que activan la regla separados por comas
+          example: NH,ND
+        DISTANCIA_CORTE_KM:
+          type: number
+          description: Distancia máxima en km para buscar puntosBX cercanos a la OS
+          example: 10
+        BASE_CDG:
+          type: string
+          description: Base de la OS
+          example: SCL
+      required:
+        - DVCF_SEQ
+        - DVTA_CDG
+        - DVCF_CANT_TRNL
+        - DESC_CONF
+        - CTA_CTE
+        - EV_EX_CONTIENE_REGLA
+        - DISTANCIA_CORTE_KM
+        - BASE_CDG
+    CreateReglaSIEBody:
+      type: object
+      properties:
+        cuentasCorrientesClhl:
+          description: >-
+            Array que contiene las cuentas corrientes de los clientes asociados
+            a la regla
+
+            en formato *-*-*, acepta el caracter * como comodín
+          example: &ref_1
+            - 123-1-*
+            - 123-2-*
+          type: array
+          items:
+            type: string
+        cantidadIntentos:
+          type: number
+          description: Cantidad de intentos antes de aplicar la regla
+          example: 3
+          minimum: 1
+        descripcion:
+          type: string
+          description: Descripción de la regla
+        eventosExcepciones:
+          description: Pinchazos que disparan la regla
+          example: &ref_2
+            - NH
+            - NC
+          type: array
+          items:
+            type: string
+        usuario:
+          type: string
+          description: Usuario que realiza la petición la regla
+      required:
+        - cantidadIntentos
+        - descripcion
+        - eventosExcepciones
+    CreateReglaSIEResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: ID regla segundo intento de entrega
+          example: 1002
+      required:
+        - id
+    UpdateReglaSIEBody:
+      type: object
+      properties:
+        cuentasCorrientesClhl:
+          description: >-
+            Array que contiene las cuentas corrientes de los clientes asociados
+            a la regla
+
+            en formato *-*-*, acepta el caracter * como comodín
+          example: *ref_1
+          type: array
+          items:
+            type: string
+        cantidadIntentos:
+          type: number
+          description: Cantidad de intentos antes de aplicar la regla
+          example: 3
+          minimum: 1
+        descripcion:
+          type: string
+          description: Descripción de la regla
+        eventosExcepciones:
+          description: Pinchazos que disparan la regla
+          example: *ref_2
+          type: array
+          items:
+            type: string
+        usuario:
+          type: string
+          description: Usuario que realiza la petición la regla
+      required:
+        - cantidadIntentos
+        - descripcion
+        - eventosExcepciones
+    UpdateReglaSIEResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: ID regla segundo intento de entrega
+          example: 1002
+      required:
+        - id
+    UpdateClientesReglaBody:
+      type: object
+      properties:
+        cuentasCorrientesClhl:
+          description: >-
+            Array que contiene las cuentas corrientes de los clientes asociados
+            a la regla
+
+            en formato *-*-*, acepta el caracter * como comodín
+          example: *ref_1
+          type: array
+          items:
+            type: string
+        cantidadIntentos:
+          type: number
+          description: Cantidad de intentos antes de aplicar la regla
+          example: 3
+          minimum: 1
+        descripcion:
+          type: string
+          description: Descripción de la regla
+        eventosExcepciones:
+          description: Pinchazos que disparan la regla
+          example: *ref_2
+          type: array
+          items:
+            type: string
+        usuario:
+          type: string
+          description: Usuario que realiza la petición la regla
+        id:
+          type: number
+          description: ID regla segundo intento de entrega
+          example: 1002
+      required:
+        - cantidadIntentos
+        - descripcion
+        - eventosExcepciones
+        - id
+    UpdateClientesReglaResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: ID regla segundo intento de entrega
+          example: 1002
+      required:
+        - id
+    ClienteDto:
+      type: object
+      properties:
+        cuentaCorriente:
+          type: string
+        nombre:
+          type: string
+        telefono:
+          type: string
+        email:
+          type: string
+        nombreContacto:
+          type: string
+        comuna:
+          type: string
+        region:
+          type: string
+        direccion:
+          type: string
+      required:
+        - cuentaCorriente
+        - nombre
+        - telefono
+        - email
+        - nombreContacto
+        - comuna
+        - region
+        - direccion
+    EventoExcepcion:
+      type: object
+      properties:
+        codigo:
+          type: string
+          description: Código del pinchazo
+          enum:
+            - NH
+            - NC
+      required:
+        - codigo
+  securitySchemes:
+    Blue-OAuth2:
+      flows: {}
+      type: oauth2
+      description: Blue-OAuth2
+    Blue-APIKey:
+      type: apiKey
+      description: Blue-APIKey
+      name: apikey
+      in: header  
+security:
+  - Blue-OAuth2: []
