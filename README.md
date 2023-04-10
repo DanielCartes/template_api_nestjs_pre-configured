@@ -27,7 +27,7 @@ The following repository contains a preconfigured template for a REST service in
 ## OAS
 Assuming the service is running locally on port 3000, the automatically generated OAS file can be found by accessing http://localhost:3000/docs.json.
 
-## Ejemplos
+## Examples
 Usage examples can be found in the example-module:
 
 - Calling stored procedures in Oracle
