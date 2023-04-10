@@ -1,34 +1,35 @@
-# REPOSITORIO BASE SERVICIO NODE CON NESTJS
+# NODE SERVICE BASE REPOSITORY WITH NESTJS
 
-El siguiente repositorio contiene una plantilla preconfigurada de un servicio REST en node (NestJS) con las configuraciones exigidas por BlueExpress (tomadas desde https://bxpress.atlassian.net/wiki/spaces/ARCHBX/pages/)
+The following repository contains a preconfigured template for a REST service in Node.js with NestJS framework.
 
-## Contiene las siguientes herramientas preconfiguradas
+## Contains the following preconfigured tools
 
 - TypeScript
-- Conexión a Oracle DB.
-- Healthcheck.
-- Logger (librería winston preconfigurada para trabajar con datadog).
-- Módulo de conexión a beetrack.
-- Generación automática de OpenApi 3.0 (oas).
-- Prettier (linter que ayuda a la calidad del código).
-- Dockerfile preconfigurada con imagen oracle-linux y la libreria cliente de oracledb.
+- Healthcheck
+- Prettier (linter that helps with code quality)
+- Logger (preconfigured winston library to work with datadog)
+- Connection to Oracle DB
+- Preconfigured Dockerfile with oracle-linux image and oracledb client library
+- Automatic generation of OpenAPI 3.0 (Swagger - OAS)
 
-## Uso
-1.- Copiar el contenido de este repositorio en el repositorio entregado por arquitectura Bluex.
-2.- Renombrar el archivo `.env.example` a `.env`.
-3.- Rellenar variables de entorno.
-4.- Instalar dependencias:
+
+## Usage
+1.- Copy the contents of this repository into the desired folder.
+2.- Rename the .env.example file to .env.
+3.- Fill in environment variables.
+4.- Install dependencies:
 > `npm install`
 
-5.- Montar el servicio:
+5.- Run the service:
 
 > `npm run start:dev`
 
 ## OAS
-Asumiendo que el servicio se ejecuta localmente en el puerto 3000, el archivo OAS generado de forma automática puede encontrarse ingresando a http://localhost:3000/docs.json. Desde aquí se recomienda pegar el spec generado en https://editor.swagger.io/ (Para transformarlo a yaml automaticamente) y guardar el yaml en la carpeta oas.
+Assuming the service is running locally on port 3000, the automatically generated OAS file can be found by accessing http://localhost:3000/docs.json.
 
 ## Ejemplos
-Se pueden encontrar ejemplos de uso en el módulo example-module
-- Llamar procedimientos almacenados en oracle
-- Llamadas a api externas
-- Uso del logger
+Usage examples can be found in the example-module:
+
+- Calling stored procedures in Oracle
+- Calling external APIs
+- Logger usage
