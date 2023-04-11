@@ -5,13 +5,8 @@ The following repository contains a preconfigured template for a REST service in
 ## Contains the following preconfigured tools
 
 - TypeScript
-- Healthcheck
-- Prettier (linter that helps with code quality)
-- Logger (preconfigured winston library to work with datadog)
-- Connection to Oracle DB
-- Preconfigured Dockerfile with oracle-linux image and oracledb client library
 - Automatic generation of OpenAPI 3.0 (Swagger - OAS)
-
+- Validation in dto
 
 ## Usage
 1.- Copy the contents of this repository into the desired folder.
@@ -24,8 +19,8 @@ The following repository contains a preconfigured template for a REST service in
 
 > `npm run start:dev`
 
-## OAS
-Assuming the service is running locally on port 3000, the automatically generated OAS file can be found by accessing http://localhost:3000/docs.json.
+## OpenApi 3.0
+Assuming the service is running locally on port 3000, the automatically generated OAS file can be found by accessing http://localhost:3000/docs
 
 ## Examples
 Usage examples can be found in the example-module:
@@ -33,3 +28,21 @@ Usage examples can be found in the example-module:
 - Calling stored procedures in Oracle
 - Calling external APIs
 - Logger usage
+
+## Comandos para instalar las bibliotecas utilizadas (para crear un proyecto desde cero)
+
+1.- Consular por las opciones para crear clases de forma rapida, etc.:
+> `nest`
+1.1.- Ejemplo (creación de un modulo):
+> `nest generate module NOMBRE_MODULO`
+
+2.- Creador de id dinámico:
+> `npm i uuid`
+> `npm i @types/uuid`
+
+3.- Validar data recibida en al api (dto):
+> `npm install class-validator class-transformer`
+
+4.- Generación automática de OpenApi 3.0 (Swagger).
+> `npm install --save @nestjs/swagger swagger-ui-express`
+
