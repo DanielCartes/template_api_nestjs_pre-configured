@@ -1,5 +1,5 @@
 import { IsString, MinLength } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger'; //para mostrar los datos en el documento Swagger de OpenApi 3.0
+import { ApiProperty } from '@nestjs/swagger'; //To display the data in the OpenAPI 3.0 Swagger document.
 
 export class apiRequestTO{
     @IsString()

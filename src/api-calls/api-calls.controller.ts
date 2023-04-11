@@ -5,7 +5,7 @@ import {apiRequestTO} from './dto/api-calls.dto';
 @Controller('api-calls')
 export class ApiCallsController {
 
-    //inyecta clases del service
+    //Inject the service classes.
     constructor(private ApiCallsService: ApiCallsService){}
 
     @Get()

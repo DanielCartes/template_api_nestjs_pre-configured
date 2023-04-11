@@ -18,14 +18,14 @@ The following repository contains a preconfigured template for a REST service in
 > `npm run start:dev`
 
 ## OpenApi 3.0
-Assuming the service is running locally on port 3000, the automatically generated OAS file can be found by accessing http://localhost:3000/docs
+Assuming the service is running locally on port 3000, the automatically generated OAS file can be found by accessing.
+- http://localhost:3000/docs
 
-## Examples
-Usage examples can be found in the example-module:
+## Test examples
+Usage examples can be found in the api-calls.controller. The method calls can be tested from a tool such as POSTMAN.
 
-- Calling stored procedures in Oracle
-- Calling external APIs
-- Logger usage
+- http://localhost:3000/api/test/v1/api-calls (GET)
+- http://localhost:3000/api/test/v1/api-calls (POST)
 
 ## Commands to install the libraries used (to create a project from scratch)
 1.- Consult the options for creating classes quickly, etc:

@@ -1,25 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { Api, apiCallsStatus, statusOK } from './api-calls.entity';
 import { v4 } from 'uuid';
-import {apiRequestTO} from './dto/api-calls.dto';
 
 @Injectable()
 export class ApiCallsService {
 
-//Simula una base de datos, cuando se reinicia el servidor se pierden los datos
-private exampleApiResponse: Api[] = [
-    {
-        //id: `01 - ${new Date().toString()}` concatenar datos,
-        id: v4(),//genera id
-        title: 'test data',
-        description: 'test the api response',
-        date: new Date().toString(),
-        status: apiCallsStatus.DONE
-    },
-];   
+    //This struct simulate a database, when the server is restarted the data is lost.
+    private exampleApiResponse: Api[] = [
+        {
+            //id: `01 - ${new Date().toString()}` concatenate data,
+            id: v4(), //Automatically generate an ID.
+            title: 'test data',
+            description: 'test the api response',
+            date: new Date().toString(),
+            status: apiCallsStatus.DONE
+        },
+    ];   
 
-private statusOKResponse = new statusOK();
-
+    private statusOKResponse = new statusOK();
 
     getData(){
         return this.exampleApiResponse;
@@ -34,10 +32,10 @@ private statusOKResponse = new statusOK();
             status: apiCallsStatus.IN_PROGRESS
         }
 
-        //agrega un nuevo objeto al arreglo
+        //Add a new object to the array.
         this.exampleApiResponse.push(request);
 
-        //responde exitosamente
+        //Respond successfully.
         this.statusOKResponse.id = request.id; 
         this.statusOKResponse.status = apiCallsStatus.DONE;
 

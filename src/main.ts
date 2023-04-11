@@ -6,7 +6,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Configuración de Swagger para generar openApi automáticamente
+  //Swagger configuration to automatically generate OpenAPI.
   const config = new DocumentBuilder()
     .setTitle('API')
     .setDescription('API de prueba para testear la implementación básica de un servicio creado con nest.js')
@@ -18,10 +18,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  //Para cerrar la conexion a la base de datos al cerrar la aplicacion
+  //To close the database connection when closing the application.
   app.enableShutdownHooks();
 
-  //Activamos las validaciones de dtos de forma global
+  //Enable dto validations globally.
   app.useGlobalPipes(new ValidationPipe({transform: true}));
 
   app.enableCors();
