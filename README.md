@@ -32,7 +32,7 @@ Usage examples can be found in the api-calls.controller. The method calls can be
 > `nest`
 
 2.- Example (creating a module):
-> `nest generate module NOMBRE_MODULO`
+> `nest generate module MODULE_NAME`
 
 3.- Dynamic ID creator:
 > `npm i uuid`
