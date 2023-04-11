@@ -1,24 +1,10 @@
-import { HealthCheckModule } from './health-check/healthCheck.module';
-import { BeetrackModule } from './beetrack/beetrack.module';
-import { LoggerModule } from './logger/logger.module';
-import { OracleModule } from './oracle/oracle.module';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import configuration from './config/configuration';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
-  imports: [
-    HealthCheckModule,
-    BeetrackModule,
-    LoggerModule,
-    OracleModule,
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [configuration],
-    }),
-  ],
-  controllers: [],
-  providers: [],
+  imports: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
-
-export class AppModule { }
+export class AppModule {}
