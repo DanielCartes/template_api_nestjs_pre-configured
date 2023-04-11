@@ -33,16 +33,17 @@ Usage examples can be found in the example-module:
 
 1.- Consular por las opciones para crear clases de forma rapida, etc.:
 > `nest`
-1.1.- Ejemplo (creación de un modulo):
+
+2.- Ejemplo (creación de un modulo):
 > `nest generate module NOMBRE_MODULO`
 
-2.- Creador de id dinámico:
+3.- Creador de id dinámico:
 > `npm i uuid`
 > `npm i @types/uuid`
 
-3.- Validar data recibida en al api (dto):
+4.- Validar data recibida en al api (dto):
 > `npm install class-validator class-transformer`
 
-4.- Generación automática de OpenApi 3.0 (Swagger).
+5.- Generación automática de OpenApi 3.0 (Swagger).
 > `npm install --save @nestjs/swagger swagger-ui-express`
 
