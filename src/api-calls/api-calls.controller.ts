@@ -1,9 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Delete, Param, Patch } from '@nestjs/common';
 import { ApiCallsService } from './api-calls.service';
-import {apiRequestTO} from './dto/api-calls.dto';
+import {apiRequestTO, updateDataTO} from './dto/api-calls.dto';
 
 @Controller('api-calls')
 export class ApiCallsController {
+
+    //@Patch: Partial update, of one or more data, but not all.
+    //@Put: full update
 
     //Inject the service classes.
     constructor(private ApiCallsService: ApiCallsService){}
@@ -19,4 +22,16 @@ export class ApiCallsController {
         return this.ApiCallsService.createData(dataRequest.description, 
             dataRequest.title);
     }
+
+    @Delete(':id')
+    deleteData(@Param('id') id:string){
+        return this.ApiCallsService.deleteData(id);
+    }
+
+    @Patch(":id")
+    updateData(@Param('id') id:string, @Body() updateFields: updateDataTO)
+    {
+        return this.ApiCallsService.updateData(id, updateFields);
+    }
+
 }

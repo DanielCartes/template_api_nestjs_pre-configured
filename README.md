@@ -24,8 +24,7 @@ Assuming the service is running locally on port 3000, the automatically generate
 ## Test examples
 Usage examples can be found in the api-calls.controller. The method calls can be tested from a tool such as POSTMAN.
 
-- http://localhost:3000/api/test/v1/api-calls (GET)
-- http://localhost:3000/api/test/v1/api-calls (POST)
+- http://localhost:3000/api/test/v1/api-calls (GET - POST - DELETE - PATCH)
 
 ## Commands to install the libraries used (to create a project from scratch)
 1.- Consult the options for creating classes quickly, etc:

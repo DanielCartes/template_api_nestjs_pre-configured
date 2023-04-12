@@ -3,10 +3,11 @@ export enum apiCallsStatus
 {
     PENDING = 'PENDING',
     IN_PROGRESS = 'IN_PROGRESS',
-    DONE = 'DONE'
+    DONE = 'DONE',
+    NOT_FOUND = 'ID NOT FOUND!'
 }
 
-export class Api{
+export class dataObject{
     id: string
     title: string
     description: string
@@ -16,5 +17,5 @@ export class Api{
 
 export class statusOK{
     id: string
-    status: apiCallsStatus.DONE
+    status: apiCallsStatus.DONE | apiCallsStatus.NOT_FOUND
 }
