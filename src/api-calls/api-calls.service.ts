@@ -58,6 +58,7 @@ export class ApiCallsService {
        return statusOKResponse
     }
 
+    //Validates that the returned object must be of type "dataObject" (:dataObject --> validate "dataObject") 
     getDataById(id: string):dataObject
     {
         return this.exampleApiResponse.find(request => request.id === id)
